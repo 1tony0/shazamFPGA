@@ -154,4 +154,4 @@ This script will:
 
 * Skye – FPGA & VHDL
 * Antonio – Linux, Python & database
-* Based on academic research and open-source libraries like Chromaprint, Dejavu, and Spiral FFT.
+
