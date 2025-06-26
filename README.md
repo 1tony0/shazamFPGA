@@ -152,6 +152,6 @@ This script will:
 
 ## 👥 Authors
 
-* Partner A – FPGA & VHDL
-* Partner B – Linux, Python & database
+* Skye – FPGA & VHDL
+* Antonio – Linux, Python & database
 * Based on academic research and open-source libraries like Chromaprint, Dejavu, and Spiral FFT.
