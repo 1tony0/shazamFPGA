@@ -34,3 +34,126 @@ This project implements a real-time music recognition system on the **Terasic DE
 - Python packages:  
   ```bash
   pip install sounddevice numpy scipy librosa sqlite3
+````
+
+---
+
+## 🧱 Project Structure
+
+```
+de10nano-music-id/
+├── fpga/                # All VHDL logic
+│   ├── fft_engine.vhd
+│   ├── windowing.vhd
+│   ├── peak_picker.vhd
+│   └── fifo_interface.vhd
+│
+├── linux/               # Python scripts on Linux (HPS)
+│   ├── record_audio.py
+│   ├── send_to_fpga.py
+│   ├── read_from_fpga.py
+│   ├── fingerprint.py
+│   ├── match_db.py
+│   └── main.py
+│
+├── db/                  # Audio fingerprint database
+│   ├── fingerprints.sqlite
+│   ├── build_db.py
+│   └── audio_clips/
+│       └── song1.wav ...
+│
+└── README.md
+```
+
+---
+
+## 🚀 Setup Instructions
+
+### 1. FPGA Side (Quartus)
+
+* Open Quartus and create a new project
+* Add all VHDL files from `fpga/`
+* Instantiate FFT IP core (512-point, fixed-point)
+* Compile and flash bitstream to FPGA
+
+### 2. Linux Side (DE10-Nano HPS)
+
+* Flash Ubuntu or Debian to SD card for HPS
+* Enable USB mic support (test with `arecord`)
+* Clone this repo on the board and install Python dependencies
+
+```bash
+sudo apt update && sudo apt install python3-pip alsa-utils
+pip3 install numpy scipy sounddevice sqlite3
+```
+
+* Populate your fingerprint database:
+
+```bash
+cd db/
+python3 build_db.py
+```
+
+* Add `.wav` clips (16kHz, mono, short samples) to `audio_clips/`
+
+---
+
+## 📈 How to Use
+
+### Step-by-Step:
+
+```bash
+cd linux/
+python3 main.py
+```
+
+This script will:
+
+1. Record a short audio sample via USB mic
+2. Send raw audio to FPGA for FFT + peak picking
+3. Read frequency peaks from FPGA
+4. Generate audio fingerprints
+5. Search for best matching song in database
+6. Output song title and match confidence
+
+---
+
+## 🧪 Example Output
+
+```bash
+🎙️ Recording audio for 5 seconds...
+📡 Sending to FPGA...
+📊 Reading FFT peaks...
+🔎 Matching fingerprints in database...
+✅ Match: "Bohemian Rhapsody" by Queen
+🎯 Confidence: 92.3% (184 peak hashes matched)
+```
+
+---
+
+## 🔧 Troubleshooting
+
+* No mic input? Try: `arecord -l` to list devices.
+* Mic not detected? Try a different USB port or add ALSA config.
+* Mismatched FFT? Check windowing function in `windowing.vhd`.
+* Incorrect peaks? Plot using `debug_peaks.py` to visualize.
+* No matches? Ensure `.wav` files in `db/audio_clips/` are short, mono, and preprocessed.
+
+---
+
+## 🌱 Future Work
+
+* Replace FFT with MFCC feature extractor
+* Add LCD display / LED indicator for song match
+* Optimize peak matching with C++ backend
+* Stream audio over Wi-Fi from external device
+
+---
+
+## 👥 Authors
+
+* Partner A – FPGA & VHDL
+* Partner B – Linux, Python & database
+* Based on academic research and open-source libraries like Chromaprint, Dejavu, and Spiral FFT.
+
+
