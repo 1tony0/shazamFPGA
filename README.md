@@ -1,6 +1,6 @@
 # 🎵 DE10-Nano Music Recognition System (Shazam Clone)
 
-This project implements a real-time music recognition system on the **Terasic DE10-Nano FPGA SoC**, inspired by **Shazam**. It captures audio from a USB microphone, performs FFT and peak detection on the FPGA, and uses the ARM processor running Linux to match extracted fingerprints against a local song database.
+This project done by Antonio and Skye implements a real-time music recognition system on the **Terasic DE10-Nano FPGA SoC**, inspired by **Shazam**. It captures audio from a USB microphone, performs FFT and peak detection on the FPGA, and uses the ARM processor running Linux to match extracted fingerprints against a local song database.
 
 ---
 
@@ -155,5 +155,3 @@ This script will:
 * Partner A – FPGA & VHDL
 * Partner B – Linux, Python & database
 * Based on academic research and open-source libraries like Chromaprint, Dejavu, and Spiral FFT.
-
-
